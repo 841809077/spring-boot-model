@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,6 +44,21 @@ public class ceshi {
         log.info("db1 的 node_type 表数据为：{}", novelTypes);
         List<UserInfo> userInfos = userInfoService.list();
         log.info("db2 的 userinfo 表数据为：{}", userInfos);
+    }
+
+    @Test
+    public void transaction() {
+        save();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void save() {
+        NovelType novelType = new NovelType();
+        novelType.setIntroduce("小说畅销榜单之一");
+        novelTypeService.save(novelType);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setPersonId("358255..");
+        userInfoService.save(userInfo);
     }
 
 }
