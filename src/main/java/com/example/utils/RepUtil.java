@@ -8,6 +8,7 @@ import cn.hutool.json.JSONUtil;
 /**
  * @author liuyzh
  * @description http 请求，并获取返回信息
+ * 参考链接：https://www.hutool.cn/docs/#/http/Http%E8%AF%B7%E6%B1%82-HttpRequest
  * @date 2020-01-07
  */
 public class RepUtil {
