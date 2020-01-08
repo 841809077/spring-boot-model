@@ -11,6 +11,8 @@ spring:
       primary: db1 #设置默认的数据源或者数据源组,默认值即为master
       datasource:
         db1:
+          druid:
+            initial-size: 3
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: mycat123
