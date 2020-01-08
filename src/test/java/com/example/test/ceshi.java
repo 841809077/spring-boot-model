@@ -4,6 +4,8 @@ import com.example.entity.NovelType;
 import com.example.entity.UserInfo;
 import com.example.service.NovelTypeService;
 import com.example.service.UserInfoService;
+import com.example.thread.ThreadTest;
+import com.example.utils.UrlImg;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,9 +32,17 @@ public class ceshi {
     @Autowired
     private UserInfoService userInfoService;
 
+    @Autowired
+    private ThreadTest threadTest;
+
+    /**
+     * 多线程测试
+     */
     @Test
-    public void aa() {
+    public void threadTest() {
         log.info("--------");
+        threadTest.ceshi();
+        threadTest.ceshi2();
     }
 
     /**
@@ -59,6 +69,17 @@ public class ceshi {
         UserInfo userInfo = new UserInfo();
         userInfo.setPersonId("358255..");
         userInfoService.save(userInfo);
+    }
+
+    /**
+     * 图片url转base64测试
+     */
+    @Test
+    public void imgUrlToBase64Test() {
+        String base64 = UrlImg.loadImg("https://upload-images.jianshu.io/upload_images/5225109-d5a7a2a49801d829.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp");
+        log.info(base64);
+        log.info("------");
+        System.out.println(base64);
     }
 
 }

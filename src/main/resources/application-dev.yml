@@ -2,8 +2,12 @@ server:
   port: 5101
 
 spring:
+  application:
+    name: @artifactId@
   datasource:
     dynamic:
+      druid:
+        initial-size: 5
       primary: db1 #设置默认的数据源或者数据源组,默认值即为master
       datasource:
         db1:
@@ -30,3 +34,7 @@ mybatis-plus:
     cache-enabled: false
     jdbc-type-for-null: 'null'
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 指定项目生成的日志目录，在logback-spring.xml文件中被使用
+log:
+  path: ./logs/${spring.application.name}
