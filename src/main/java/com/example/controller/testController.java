@@ -40,6 +40,8 @@ public class testController {
             throw new CustomException(ResultEnum.ERROR);
         }
 
+        // 对于一些验证规则，我们可以根据验证结果选择使用resultUtil.success() 或者 resultUtil.error()
+
         return resultUtil.success("");
     }
 }

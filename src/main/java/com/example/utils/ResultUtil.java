@@ -27,6 +27,21 @@ public class ResultUtil {
     }
 
     /**
+     * 自定义成功提示，返回信息
+     *
+     * @param object
+     * @param resultEnum
+     * @return com.example.entity.Result<java.lang.Object>
+     */
+    public Result<Object> success(Object object, ResultEnum resultEnum) {
+        Result<Object> result = new Result<>();
+        result.setCode(resultEnum.getCode());
+        result.setMsg(resultEnum.getMsg());
+        result.setData(object);
+        return result;
+    }
+
+    /**
      * 固定失败提示，返回信息
      *
      * @return com.example.entity.Result<java.lang.Object>
