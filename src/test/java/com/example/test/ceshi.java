@@ -1,10 +1,13 @@
 package com.example.test;
 
+import cn.hutool.json.JSONObject;
+import com.alibaba.fastjson.JSON;
 import com.example.entity.NovelType;
 import com.example.entity.UserInfo;
 import com.example.service.NovelTypeService;
 import com.example.service.UserInfoService;
 import com.example.thread.ThreadTest;
+import com.example.utils.RepUtil;
 import com.example.utils.UrlImg;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -43,6 +46,15 @@ public class ceshi {
         log.info("--------");
         threadTest.ceshi();
         threadTest.ceshi2();
+    }
+
+    @Test
+    public void getImgByCardId() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("sfzh", "379008194711040270");
+        JSONObject resJsonObj = RepUtil.post("http://192.168.166.189:5101/face/query", JSON.toJSONString(jsonObject));
+//        log.info(resJsonObj.toString());
+        System.out.println(resJsonObj.toString());
     }
 
     /**
