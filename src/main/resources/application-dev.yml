@@ -16,17 +16,17 @@ spring:
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: mycat123
-          url: jdbc:mysql://192.168.166.189:3306/spring_boot_study?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+          url: jdbc:mysql://localhost:3306/spring_boot_study?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
 #        db2:
 #          username: zp
 #          password: haodai
 #          driver-class-name: oracle.jdbc.driver.OracleDriver
 #          url: jdbc:oracle:thin:@oracle.baidu.com:1521/orcl
-        db3:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          username: root
-          password: mycat123
-          url: jdbc:mysql://192.168.166.189:3306/new_test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+#        db3:
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          username: root
+#          password: mycat123
+#          url: jdbc:mysql://192.168.166.189:3306/new_test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
@@ -35,7 +35,7 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
     jdbc-type-for-null: 'null'
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 指定项目生成的日志目录，在logback-spring.xml文件中被使用
 log:

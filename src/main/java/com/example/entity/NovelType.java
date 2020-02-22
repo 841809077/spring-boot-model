@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -14,7 +15,7 @@ import lombok.Data;
 @TableName("novel_type")
 public class NovelType {
 
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     @TableField("novelname")
