@@ -39,4 +39,4 @@ mybatis-plus:
 
 # 指定项目生成的日志目录，在logback-spring.xml文件中被使用
 log:
-  path: ./logs/${spring.application.name}
+  path: ./logs
