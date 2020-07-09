@@ -17,7 +17,7 @@
             <outputDirectory>bin</outputDirectory>
             <!--文件过滤-->
             <includes>
-                <include>*.*</include>
+                <include>*</include>
             </includes>
             <!--文件权限-->
             <fileMode>0755</fileMode>
