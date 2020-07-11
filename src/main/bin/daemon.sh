@@ -57,7 +57,7 @@ check_running() {
     fi
 }
 usage() {
-    echo "Usage: $BASE [-dh] [stop|restart|status|debug]"
+    echo "Usage: $BASE [-dh] [--help] [stop|restart|status|debug]"
     echo "Start $AppName."
     echo "    stop          stop program"
     echo "    restart       restart program in background"
@@ -100,7 +100,12 @@ stop_service() {
     fi
 }
 debug_service() {
-    command="java $JavaOpts -cp $APP_CLASSPATH -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 $Package.$AppName"
+    port=5005
+    if [ "x$1" != "x" ]
+    then
+      port=$!
+    fi
+    command="java $JavaOpts -cp $APP_CLASSPATH -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=$port $Package.$AppName"
     exec $command
 }
 
@@ -110,6 +115,10 @@ then
     echo "Start error. Can not use[${user}], please use[${UserName}] to start!"
     exit 1
 fi
+
+ARGS=`getopt -o dh --long help -n $BASE -- "$@"`
+#将规范化后的命令行参数分配至位置参数（$1,$2,...)
+eval set -- "${ARGS}"
 
 # if $1 has value, enter case statement
 while [ -n "$1" ]; do
@@ -129,8 +138,16 @@ while [ -n "$1" ]; do
             exit 0
         ;;
         debug)
-            debug_service
-            exit 0
+            case "$2" in
+                "")
+                    debug_service
+                    exit 0
+                ;;
+                *)
+                    debug_service $2
+                    exit 0
+                ;;
+            esac
         ;;
         -d)
             daemonized="yes"
@@ -142,8 +159,11 @@ while [ -n "$1" ]; do
             usage
             exit 0
         ;;
+        --)
+            shift
+        ;;
         *)
-            echo "$BASE missing optstring argument"
+            echo "$BASE missing optstring argument -- [$*]"
             echo "Try '$BASE --help' for more information."
             exit 1
         ;;
