@@ -1,6 +1,6 @@
 #!/bin/sh
 
-USER_NAME="tsv"
+USER_NAME="root"
 
 user=$(whoami)
 
