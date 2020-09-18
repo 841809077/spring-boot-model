@@ -23,7 +23,10 @@ public class ListennerTest implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("--------");
-        threadTest.ceshi();
-        threadTest.ceshi2();
+        for (int i = 0; i < 1000; i++) {
+            threadTest.ceshi();
+        }
+
+//        threadTest.ceshi2();
     }
 }

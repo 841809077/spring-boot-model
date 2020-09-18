@@ -26,7 +26,7 @@ fi
 checkingbooted()
 {
     sleep 2
-    result=$(jps | grep "$AppName")
+    result=$(jps | grep -w "$AppName")
     ret=$?
     if [ $ret -eq 0 ]
     then
@@ -45,7 +45,7 @@ shift
 # Set classpath
 APP_CLASSPATH=$APP_CLASSPATH:$APP_HOME/lib/*:$APP_HOME/conf
 check_running() {
-    result=$(jps | grep "$AppName")
+    result=$(jps | grep -w "$AppName")
     ret=$?
     if [ $ret -eq 0 ]
     then
@@ -79,7 +79,7 @@ launch_service() {
     fi
 }
 stop_service() {
-    result=$(jps | grep "$AppName")
+    result=$(jps | grep -w "$AppName")
     ret=$?
     if [ $ret -eq 0 ]
     then
