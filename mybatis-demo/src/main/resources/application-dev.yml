@@ -1,0 +1,51 @@
+server:
+  port: 5100
+
+spring:
+  application:
+    name: mybatis-demo
+  datasource:
+    dynamic:
+      druid:
+        initial-size: 5
+      primary: db1 #设置默认的数据源或者数据源组,默认值即为master
+      datasource:
+        db1:
+          druid:
+            initial-size: 3
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: hollysys@7556
+          url: jdbc:mysql://20.5.2.65:3306/spring_boot_model?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+#        db2:
+#          username: zp
+#          password: haodai
+#          driver-class-name: oracle.jdbc.driver.OracleDriver
+#          url: jdbc:oracle:thin:@oracle.baidu.com:1521/orcl
+#        db3:
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          username: root
+#          password: mycat123
+#          url: jdbc:mysql://192.168.166.189:3306/new_test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.example.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    jdbc-type-for-null: 'null'
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 指定项目生成的日志目录，在logback-spring.xml文件中被使用
+log:
+  path: ./logs
+
+
+kafka:
+  server: "192.168.66.65:9092"
+  topic: "test-v4"
+#  partitionCount: 4
+  groupId: "ccc"
+  resetPolicy: "earliest"
+  consumerInterval: 5000

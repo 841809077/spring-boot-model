@@ -1,8 +1,0 @@
-#!/bin/sh
-export AppName="CustomApplication"
-export Package="com.example"
-export UserName="root"
-export JavaOpts="-Xmx800m -Xms512m"
-bin=`dirname "$0"`
-bin=`cd "$bin"; pwd`
-"$bin"/daemon.sh "$0" "$@"
