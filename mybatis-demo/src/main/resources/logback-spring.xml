@@ -9,18 +9,16 @@
 
     <!--控制台输出-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-        <encoder>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- 格式化输出: %d: 日期; %thread: 线程名; %-5level: 级别从左显示5个字符宽度; %logger: 类名; %M: 方法名; %line: 行号; %msg: 日志消息; %n: 换行符 -->
             <!-- 19:34:48.934 [http-nio-8081-exec-1] WARN  com.study.spring.helloDemo - warn warn warn warn warn warn warn warn -->
-            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M [%line] - %msg%n</Pattern>
             <!-- 编码 -->
             <charset>UTF-8</charset>
         </encoder>
     </appender>
 
-    <!--除去error级别的日志文件输出-->
+    <!--日志文件输出-->
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--如果是true，日志被追加到文件结尾，如果是false，清空现存文件，默认是true。-->
         <append>true</append>
@@ -31,13 +29,13 @@
             <!-- 日志的每个文件，大小最大100MB -->
             <maxFileSize>100MB</maxFileSize>
             <!-- 日志所有文件的总大小，如果总大小>1GB，它将删除旧文件 -->
-            <totalSizeCap>5GB</totalSizeCap>
+            <totalSizeCap>1GB</totalSizeCap>
             <!-- 保留60天的历史纪录 -->
             <maxHistory>60</maxHistory>
         </rollingPolicy>
-        <encoder>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!-- 格式化日志输出 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M [%line] - %msg%n</pattern>
             <!-- 编码 -->
             <charset>UTF-8</charset>
         </encoder>
