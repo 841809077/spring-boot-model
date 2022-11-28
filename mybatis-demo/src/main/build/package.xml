@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+    <id>package</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <baseDirectory>mybatis-demo</baseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>src/main/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+            <!--文件权限-->
+            <fileMode>0755</fileMode>
+            <!--如果是脚本，一定要改为unix.如果是在windows上面编码，会出现dos编写问题-->
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>conf</outputDirectory>
+        </fileSet>
+
+        <fileSet>
+            <directory>logs</directory>
+            <outputDirectory>logs</outputDirectory>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <scope>runtime</scope>
+        </dependencySet>
+    </dependencySets>
+</assembly>

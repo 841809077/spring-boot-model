@@ -9,3 +9,6 @@
 - spring @Transactional 场景在测 ...
 - 添加自定义打包方式: [文章](https://841809077.github.io/2020/06/28/Spring%20boot/spring-boot-package-execute-jar.html)
 - 制作脚本工具，添加 JCommander 解析命令行参数: OffsetTimestamp.java
+- 添加 swagger-ui
+- 新增 git commit 记录插件，可明确了解构建版本为哪个提交记录
+- 

@@ -8,12 +8,16 @@
         <version>0.0.1</version>
     </parent>
     <artifactId>mybatis-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>mybatis-demo</name>
     <description>Demo project for Spring Boot</description>
+
     <properties>
+        <!-- 项目编译的编码格式，建议加上 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -66,13 +70,140 @@
             <artifactId>jcommander</artifactId>
             <version>1.72</version>
         </dependency>
+        <!-- swagger ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.5.22</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>1.5.22</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>*.conf</exclude>
+                        <exclude>*.yml</exclude>
+                        <exclude>*.xml</exclude>
+                        <exclude>application*.properties</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.5</version>
+                <configuration>
+                    <encoding>utf-8</encoding>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <!-- 配置描述符文件 -->
+                        <descriptor>src/main/build/package.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- 绑定到package生命周期 -->
+                        <phase>package</phase>
+                        <goals>
+                            <!-- 只运行一次 -->
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 指定编译版本，建议加上 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>4.0.0</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>validate-the-git-infos</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>validateRevision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                    <prefix>git</prefix>
+                    <!--构建过程中,是否打印详细信息-->
+                    <verbose>true</verbose>
+                    <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+                    <prefix>git</prefix>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                    <format>json</format>
+                    <!-- git.commit.id.abbrev属性值的长度，取值范围在[2, 40]，默认值7 -->
+                    <abbrevLength>7</abbrevLength>
+                    <gitDescribe>
+                        <skip>false</skip>
+                        <always>false</always>
+                        <dirty>-dirty</dirty>
+                    </gitDescribe>
+                    <!-- 定义需要校验的属性 -->
+                    <validationProperties>
+                        <!-- 构建时验证: 是否有未提交代码 -->
+                        <validationProperty>
+                            <!-- 校验失败时提示使用 -->
+                            <name>validating git dirty</name>
+                            <!-- 需要校验的属性 -->
+                            <value>${git.dirty}</value>
+                            <!-- 期望的属性值：false -->
+                            <shouldMatchTo>false</shouldMatchTo>
+                        </validationProperty>
+                    </validationProperties>
+                    <!-- 配置校验的属性值与期望值不一致是否构建失败，默认值true：失败，false：继续构建 -->
+                    <validationShouldFailIfNoMatch>false</validationShouldFailIfNoMatch>
+                    <excludeProperties>
+                        <excludeProperty>git.build.user.*</excludeProperty>
+                        <excludeProperty>git.commit.user.*</excludeProperty>
+                        <excludeProperty>git.remote.origin.url</excludeProperty>
+                        <excludeProperty>git.total.commit.count</excludeProperty>
+                        <excludeProperty>git.commit.message.*</excludeProperty>
+                        <excludeProperty>git.build.host</excludeProperty>
+                        <excludeProperty>git.closest.*</excludeProperty>
+                        <excludeProperty>git.commit.id.describe</excludeProperty>
+                        <excludeProperty>git.commit.id.describe-short</excludeProperty>
+                    </excludeProperties>
+                </configuration>
             </plugin>
         </plugins>
     </build>

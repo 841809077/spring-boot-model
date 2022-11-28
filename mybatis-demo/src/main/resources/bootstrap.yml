@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: event-center-service
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_HOST:nacos.public.develop.hollicube.com:80}
+        file-extension: yaml
+        namespace: ${NACOS_NAMESPACE:}
+        refresh:
+          enabled: false
+        extension-configs[0]:
+          data-id: ${NACOS_DATAID_0:holli-event-center-service.yaml}
+          group: ${NACOS_GROUP_0:DEFAULT_GROUP}
+        enabled: ${NACOS_ENABEL:false}

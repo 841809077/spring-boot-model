@@ -5,10 +5,16 @@ import com.example.exception.CustomException;
 import com.example.utils.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.HttpClientErrorException;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ValidationException;
 
 /**
  * @author Liuyongzhi
@@ -28,19 +34,27 @@ public class ExceptionHandle {
      */
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public Result<Object> handle(Exception e) {
+    public Result<Object> handle(HttpServletResponse response, Exception e) {
         log.error("出现异常：", e);
         if (e instanceof CustomException) {
             //如果是我们自定义的异常，就直接返回我们异常里面设置的信息
             CustomException customException = (CustomException) e;
             return Result.failed(customException.hashCode(), customException.getMessage());
+        } else if (e instanceof ValidationException) {
+            return Result.failed(1003, e.getMessage());
+        } else if (e instanceof BindException) {
+            return Result.failed(1003, ((BindException) e).getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        } else if (e instanceof HttpClientErrorException) {
+            return Result.failed(e.getMessage());
+        } else if (e instanceof HttpMessageNotReadableException) {
+            response.setStatus(400);
+            return Result.failed(ResultEnum.HTTP_MESSAGE_NOT_READABLE);
         } else if (e instanceof HttpRequestMethodNotSupportedException) {
-            //对其他的异常进行处理，如果是请求方法错误，我们设置 code 和 msg 进行返回。
-            return Result.failed(ResultEnum.HTTP_ERROR);
-        } else if (e instanceof RuntimeException) {
-            return Result.failed(ResultEnum.RUNTIME_ERROR);
+            response.setStatus(405);
+            return Result.failed(ResultEnum.HTTP_STATUS_METHOD_NOT_ALLOWED.getCode(), e.getMessage());
         } else {
-            return Result.failed();
+            response.setStatus(500);
+            return Result.failed(ResultEnum.HTTP_STATUS_INTERNAL_SERVER_ERROR);
         }
     }
 

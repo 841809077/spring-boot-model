@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.enums.ResultEnum;
 import com.example.utils.Result;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("test")
+@Api(tags = "相关测试接口")
 public class TestController {
 
     @GetMapping(value = "/noError")

@@ -29,7 +29,7 @@ public class MyThreadPool {
         // 获取所有并发任务的运行结果
         for (Future<String> f : list) {
             // 从 Future 对象上获取任务的返回值，并输出到控制台
-            System.out.println("res：" + f.get().toString());
+            System.out.println("res：" + f.get());
         }
     }
 

@@ -6,11 +6,14 @@
 由于 mybatis-demo 项目有接口全局异常处理，可以以此项目为模板复用。 
 - 修改项目目录名称
 - 用 idea 打开，右键 rename 改名
+- 将pom文件中的parent换为spring-boot-starter-parent
 - 修改 pom 文件的 artifactId 和 name。
 - 修改 包名，右键 包 --> Refactor --> Rename --> Rename package，并修改 pom 文件的 groupId 。
 - 修改启动类名称：xxxApplication
-- 修改 Configurations
+- 修改 Run/Debug Configurations
 ![](https://cdn.jsdelivr.net/gh/841809077/blog-img/20200101/20200117172105.png)
-- 如果包名之前被修改，则需要修改 @MapperScan({"xx.xx.xx.mapper"}) 的值
+- 如果包名之前被修改，则需要修改 config/MybatisPlusConfig.java 中的 @MapperScan({"xx.xx.xx.mapper"}) 的值
 - 如果包名之前被修改，则需要修改 mybatis-plus.typeAliasesPackage 的值，比如：xx.xx.xx.entity
 - 执行 mvn clean 命令，用于清除 target 缓存。否则可能会报：spring boot org.apache.ibatis.binding.BindingException: Invalid bound statement (not found) 错误。
+- 修改src/main/bin/mybatisdemo文件中的报名与启动类
+- 

@@ -1,9 +1,4 @@
-server:
-  port: 5100
-
 spring:
-  application:
-    name: mybatis-demo
   datasource:
     dynamic:
       druid:
