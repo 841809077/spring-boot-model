@@ -41,6 +41,9 @@
         </encoder>
     </appender>
 
+    <!-- 设置指定包打印日志级别 -->
+    <logger name="com.example" level="INFO" />
+
     <!--项目所有日志输出设置-->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
